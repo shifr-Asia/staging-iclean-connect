@@ -31,6 +31,18 @@
           </button>
 
           <button 
+            @click="activeTab = 'b2b'"
+            :class="[
+              'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2',
+              activeTab === 'b2b' ? 'bg-white text-[#003C80] shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            ]"
+          >
+            <Store class="w-4 h-4 text-[#2cbbbc]" />
+            B2B Marketplace & Portal
+            <span class="bg-[#2cbbbc] text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">Baru</span>
+          </button>
+
+          <button 
             @click="activeTab = 'simulator'"
             :class="[
               'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2',
@@ -490,7 +502,10 @@
 
       </div>
 
-      <!-- 2. TAB: CROSS-CHANNEL JOURNEY SIMULATOR -->
+      <!-- 2. TAB: B2B MARKETPLACE & CLIENT PORTAL (NEW!) -->
+      <B2bPortal v-else-if="activeTab === 'b2b'" />
+
+      <!-- 3. TAB: CROSS-CHANNEL JOURNEY SIMULATOR -->
       <div v-else-if="activeTab === 'simulator'" class="h-full p-4 sm:p-8 overflow-y-auto bg-slate-50">
         <div class="max-w-5xl mx-auto space-y-6 sm:space-y-8">
           <div class="text-center space-y-1.5 sm:space-y-2">
@@ -850,7 +865,7 @@
     </main>
 
     <!-- MOBILE BOTTOM NAVIGATION BAR -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 h-14 bg-white border-t border-slate-200 z-30 flex items-center justify-around px-2">
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 h-14 bg-white border-t border-slate-200 z-30 flex items-center justify-around px-1">
       <button 
         @click="activeTab = 'inbox'; mobileActiveView = 'list'"
         :class="[
@@ -862,7 +877,21 @@
           <MessageSquare class="w-4 h-4" />
           <span class="absolute -top-1 -right-2 bg-[#008FD4] text-white text-[8px] font-bold px-1 rounded-full">4</span>
         </div>
-        <span class="text-[10px] mt-0.5">Inbox</span>
+        <span class="text-[9px] mt-0.5">Inbox</span>
+      </button>
+
+      <button 
+        @click="activeTab = 'b2b'"
+        :class="[
+          'flex flex-col items-center justify-center flex-1 py-1 transition-all',
+          activeTab === 'b2b' ? 'text-[#2cbbbc] font-bold' : 'text-slate-500 hover:text-slate-800'
+        ]"
+      >
+        <div class="relative">
+          <Store class="w-4 h-4" />
+          <span class="absolute -top-1 -right-1.5 bg-[#2cbbbc] text-white text-[7px] font-bold px-1 rounded-full">New</span>
+        </div>
+        <span class="text-[9px] mt-0.5">B2B Portal</span>
       </button>
 
       <button 
@@ -873,7 +902,7 @@
         ]"
       >
         <GitMerge class="w-4 h-4" />
-        <span class="text-[10px] mt-0.5">Simulator</span>
+        <span class="text-[9px] mt-0.5">Simulator</span>
       </button>
 
       <button 
@@ -884,7 +913,7 @@
         ]"
       >
         <BarChart3 class="w-4 h-4" />
-        <span class="text-[10px] mt-0.5">Executive</span>
+        <span class="text-[9px] mt-0.5">Executive</span>
       </button>
     </nav>
 
@@ -939,8 +968,10 @@ import { ref, computed, onMounted, nextTick, defineComponent, h } from 'vue'
 import axios from 'axios'
 import { 
   MessageSquare, GitMerge, BarChart3, Search, PhoneCall, Instagram, Globe,
-  ArrowRight, ArrowLeft, UserCheck, CheckCircle2, User, Sparkles, Send, Plus, Cpu, Check, Info, X
+  ArrowRight, ArrowLeft, UserCheck, CheckCircle2, User, Sparkles, Send, Plus, Cpu, Check, Info, X,
+  Store
 } from 'lucide-vue-next'
+import B2bPortal from './components/B2bPortal.vue'
 
 const activeTab = ref('inbox')
 const simStep = ref(1)
