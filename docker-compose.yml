@@ -1,0 +1,26 @@
+services:
+  connect-mockup:
+    build: .
+    container_name: staging-iclean-connect
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.http-0-connect.entryPoints=http"
+      - "traefik.http.routers.http-0-connect.middlewares=redirect-to-https"
+      - "traefik.http.routers.http-0-connect.rule=Host(`connect-iclean.shifr.asia`) && PathPrefix(`/`)"
+      - "traefik.http.routers.http-0-connect.service=http-0-connect"
+      - "traefik.http.routers.https-0-connect.entryPoints=https"
+      - "traefik.http.routers.https-0-connect.middlewares=gzip-sse"
+      - "traefik.http.routers.https-0-connect.rule=Host(`connect-iclean.shifr.asia`) && PathPrefix(`/`)"
+      - "traefik.http.routers.https-0-connect.service=https-0-connect"
+      - "traefik.http.routers.https-0-connect.tls=true"
+      - "traefik.http.routers.https-0-connect.tls.certresolver=letsencrypt"
+      - "traefik.http.services.http-0-connect.loadbalancer.server.port=80"
+      - "traefik.http.services.https-0-connect.loadbalancer.server.port=80"
+      - "caddy_0=https://connect-iclean.shifr.asia"
+
+networks:
+  coolify:
+    external: true
