@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-white">
     <DomainBar domain="icleanplus.id" strip="/marketplace" />
-    <header class="sticky top-[37px] z-40 border-b border-slate-100 bg-white/95 backdrop-blur">
+    <header class="sticky top-[38px] z-40 border-b border-slate-100 bg-white/95 backdrop-blur">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <img src="/logo_iclean_birru.png" alt="iClean" class="h-8" />
         <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">

@@ -4,11 +4,11 @@
       <span>Harga bertingkat ({{ region }})</span><SourceChip />
     </div>
     <div class="grid" :style="{ gridTemplateColumns: `repeat(${tiers.length + 1}, minmax(0,1fr))` }">
-      <div v-for="t in tiers" :key="t.min" class="px-3 py-2.5 border-t border-r border-slate-100 transition-colors" :class="active(t) ? 'bg-sky-50' : ''">
-        <p class="text-[11px] text-slate-500">{{ t.min }}–{{ t.max }} {{ uom }}</p>
-        <p class="text-sm font-bold tabular-nums" :class="active(t) ? 'text-[#003C80]' : 'text-slate-700'">{{ rupiah(t.price) }}</p>
+      <div v-for="t in tiers" :key="t.min" class="px-2 sm:px-3 py-2.5 border-t border-r border-slate-100 transition-colors" :class="active(t) ? 'bg-sky-50' : ''">
+        <p class="text-[10px] sm:text-[11px] text-slate-500 whitespace-nowrap">{{ t.min }}–{{ t.max }} {{ uom }}</p>
+        <p class="text-[12px] sm:text-sm font-bold tabular-nums whitespace-nowrap" :class="active(t) ? 'text-[#003C80]' : 'text-slate-700'">{{ rupiah(t.price) }}</p>
       </div>
-      <div class="px-3 py-2.5 border-t border-slate-100" :class="qty > tiers[tiers.length - 1].max ? 'bg-amber-50' : ''">
+      <div class="px-2 sm:px-3 py-2.5 border-t border-slate-100" :class="qty > tiers[tiers.length - 1].max ? 'bg-amber-50' : ''">
         <p class="text-[11px] text-slate-500">&gt; {{ tiers[tiers.length - 1].max }} {{ uom }}</p>
         <p class="text-[12px] font-bold text-amber-700">Penawaran</p>
       </div>

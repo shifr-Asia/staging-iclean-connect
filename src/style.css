@@ -25,3 +25,10 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+/* Marketplace: edge-to-edge sections on mobile, like Shopee */
+@media (max-width: 767px) {
+  .mkt-main .mcard { border-radius: 0 !important; border-left-width: 0 !important; border-right-width: 0 !important; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+.no-scrollbar { scrollbar-width: none; }

@@ -1,13 +1,21 @@
 <template>
-  <StoreLayout>
-    <RouterLink to="/marketplace/pesanan" class="inline-flex items-center gap-1 text-[13px] text-slate-500 hover:text-[#008FD4]"><ChevronLeft class="h-4 w-4" /> Pesanan saya</RouterLink>
+  <StoreLayout title="Rincian Pesanan">
+    <RouterLink to="/marketplace/pesanan" class="hidden md:inline-flex items-center gap-1 text-[13px] text-slate-500 hover:text-[#008FD4]"><ChevronLeft class="h-4 w-4" /> Pesanan saya</RouterLink>
 
-    <div v-if="!o" class="mt-4 rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500">Pesanan tidak ditemukan.</div>
+    <div v-if="!o" class="mcard md:mt-4 rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500">Pesanan tidak ditemukan.</div>
 
-    <div v-else class="mt-3 grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
-      <div class="min-w-0 space-y-4">
+    <div v-else class="md:mt-3 grid gap-2 md:gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
+      <div class="min-w-0 space-y-2 md:space-y-4">
+        <!-- mobile status banner (Shopee) -->
+        <div class="md:hidden flex items-center justify-between gap-3 px-4 py-4 text-white" :class="bannerCls">
+          <div class="min-w-0">
+            <p class="text-[15px] font-semibold">{{ stepLabel(o) }}</p>
+            <p class="text-[11px] text-white/85">{{ bannerSub }}</p>
+          </div>
+          <component :is="bannerIcon" class="h-10 w-10 shrink-0 text-white/80" />
+        </div>
         <!-- header -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+        <div class="mcard rounded-2xl border border-slate-200 bg-white p-3 sm:p-5">
           <div class="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p class="text-[12px] text-slate-500">{{ o.type === 'quote' ? 'Permintaan penawaran' : 'Pesanan' }} · dibuat {{ o.createdAt }}</p>
@@ -23,7 +31,7 @@
         </div>
 
         <!-- quote panel -->
-        <div v-if="o.type === 'quote'" class="rounded-2xl border p-4 sm:p-5" :class="o.quoteStatus === 'issued' ? 'border-[#008FD4] bg-sky-50/50' : 'border-amber-200 bg-amber-50/60'">
+        <div v-if="o.type === 'quote'" class="mcard rounded-2xl border p-3 sm:p-5" :class="o.quoteStatus === 'issued' ? 'border-[#008FD4] bg-sky-50/50' : 'border-amber-200 bg-amber-50/60'">
           <template v-if="o.quoteStatus === 'requested'">
             <p class="flex items-center gap-2 font-semibold text-amber-900"><Clock class="h-4 w-4" /> Menunggu quotation dari Sales</p>
             <p class="mt-1 text-[13px] text-amber-900/80">Sales {{ persona.sales || 'iClean' }} menyiapkan harga sesuai kuantitas, area kirim, dan kebutuhan Anda. Notifikasi dikirim via WhatsApp & email saat quotation terbit.</p>
@@ -47,7 +55,7 @@
         </div>
 
         <!-- timeline -->
-        <div v-if="o.type === 'order'" class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+        <div v-if="o.type === 'order'" class="mcard rounded-2xl border border-slate-200 bg-white p-3 sm:p-5">
           <div class="mb-4 flex items-center justify-between">
             <p class="font-heading font-extrabold text-slate-900">Status pesanan</p>
             <SourceChip label="Diperbarui dari Ukirama" />
@@ -56,8 +64,8 @@
         </div>
 
         <!-- items -->
-        <div class="rounded-2xl border border-slate-200 bg-white">
-          <p class="border-b border-slate-100 px-4 py-3 font-heading font-extrabold text-slate-900">Produk</p>
+        <div class="mcard rounded-2xl border border-slate-200 bg-white">
+          <p class="border-b border-slate-100 px-3 md:px-4 py-3 font-heading font-extrabold text-slate-900">Produk</p>
           <div v-for="it in o.items" :key="it.sku" class="flex items-center gap-3 border-b border-slate-100 px-4 py-3 text-[13px] last:border-0">
             <ProductTile :product="VARIANTS[it.sku].product" class="h-14 w-14 shrink-0" />
             <div class="min-w-0 flex-1">
@@ -70,8 +78,8 @@
         </div>
       </div>
 
-      <aside class="space-y-4 lg:sticky lg:top-40">
-        <div class="rounded-2xl border border-slate-200 bg-white p-4 text-[13px]">
+      <aside class="space-y-2 md:space-y-4 lg:sticky lg:top-40">
+        <div class="mcard rounded-2xl border border-slate-200 bg-white p-3 md:p-4 text-[13px]">
           <p class="font-heading font-extrabold text-slate-900">Pengiriman</p>
           <p class="mt-2 font-semibold text-slate-800">{{ addr?.label }} <span class="font-normal text-slate-500">· {{ region.name }}</span></p>
           <p class="text-slate-500">{{ addr?.recipient }}</p>
@@ -79,7 +87,7 @@
           <p v-if="o.shipping" class="mt-2 flex items-center gap-1.5 text-slate-600"><Truck class="h-4 w-4" />{{ o.shipping.method }}<span v-if="o.shipping.ref !== '-'"> · {{ o.shipping.ref }}</span></p>
         </div>
 
-        <div v-if="o.type === 'order' || o.quoteStatus === 'issued'" class="rounded-2xl border border-slate-200 bg-white p-4 text-[13px]">
+        <div v-if="o.type === 'order' || o.quoteStatus === 'issued'" class="mcard rounded-2xl border border-slate-200 bg-white p-3 md:p-4 text-[13px]">
           <p class="font-heading font-extrabold text-slate-900">Tagihan</p>
           <div class="mt-2 space-y-1.5">
             <div class="flex justify-between"><span class="text-slate-500">Subtotal</span><span class="tabular-nums">{{ rupiah(t.sub) }}</span></div>
@@ -101,23 +109,31 @@
           </template>
         </div>
 
-        <button v-if="o.type === 'order' && o.step >= 6" class="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#008FD4] bg-white py-2.5 font-semibold text-[#008FD4]" @click="reorder"><Repeat class="h-4 w-4" /> Pesan lagi</button>
+        <button v-if="o.type === 'order' && o.step >= 6" class="hidden md:flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#008FD4] bg-white py-2.5 font-semibold text-[#008FD4]" @click="reorder"><Repeat class="h-4 w-4" /> Pesan lagi</button>
       </aside>
     </div>
+    <template v-if="o && (o.step >= 6 || orderTab(o) === 'unpaid' || o.quoteStatus === 'issued')" #bottom>
+      <div class="flex h-[52px] items-center justify-end gap-2 px-3">
+        <button class="rounded-sm border border-slate-300 px-4 py-2 text-[13px] text-slate-700" @click="negotiate">Hubungi Sales</button>
+        <button v-if="o.quoteStatus === 'issued'" class="rounded-sm bg-[#008FD4] px-4 py-2 text-[13px] font-semibold text-white" @click="accept">Setujui Penawaran</button>
+        <button v-else-if="orderTab(o) === 'unpaid'" class="rounded-sm bg-[#008FD4] px-4 py-2 text-[13px] font-semibold text-white" @click="simulateUkiramaUpdate(o.id)">Bayar Sekarang</button>
+        <button v-else class="rounded-sm bg-[#008FD4] px-4 py-2 text-[13px] font-semibold text-white" @click="reorder">Beli Lagi</button>
+      </div>
+    </template>
   </StoreLayout>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ChevronLeft, Clock, FileText, Truck, Download, Repeat } from 'lucide-vue-next'
+import { ChevronLeft, Clock, FileText, Truck, Download, Repeat, PackageCheck, Wallet, PackageOpen } from 'lucide-vue-next'
 import StoreLayout from '../components/StoreLayout.vue'
 import ProductTile from '../components/ProductTile.vue'
 import SourceChip from '../components/SourceChip.vue'
 import OrderTimeline from '../components/OrderTimeline.vue'
 import { VARIANTS, REGIONS, PERSONAS } from '../data'
 import { rupiah } from '../pricing'
-import { state, persona, orderTotal, orderTab, acceptQuote, addToCart, simulateUkiramaUpdate, notify } from '../store'
+import { state, persona, orderTotal, orderTab, stepLabel, acceptQuote, addToCart, simulateUkiramaUpdate, notify } from '../store'
 
 const route = useRoute()
 const router = useRouter()
@@ -129,6 +145,15 @@ const t = computed(() => orderTotal(o.value))
 const paid = computed(() => !!o.value?.stepAt?.[2])
 const pay = ref(persona.value.payments?.includes('top') ? 'top' : 'va')
 
+const bannerCls = computed(() => ({ quote: 'bg-amber-500', unpaid: 'bg-rose-500', processing: 'bg-[#008FD4]', shipped: 'bg-indigo-500', done: 'bg-emerald-600', cancelled: 'bg-slate-500' }[orderTab(o.value)]))
+const bannerIcon = computed(() => ({ quote: FileText, unpaid: Wallet, processing: PackageOpen, shipped: Truck, done: PackageCheck, cancelled: Clock }[orderTab(o.value)]))
+const bannerSub = computed(() => {
+  const x = o.value
+  if (x.type === 'quote') return x.quoteStatus === 'issued' ? `Setujui sebelum ${x.validUntil}` : 'Sales sedang menyiapkan harga'
+  if (x.step >= 6) return `Lead time ${x.leadTime || '-'} · terima kasih!`
+  if (orderTab(x) === 'unpaid') return 'Selesaikan pembayaran agar pesanan diproses'
+  return `Estimasi tiba ${region.value.leadTime}`
+})
 function accept() { acceptQuote(o.value, pay.value); notify(`Quotation disetujui · ${o.value.ukiramaRef} dibuat di Ukirama`) }
 function reject() { o.value.quoteStatus = 'rejected'; notify('Penawaran ditolak') }
 function negotiate() { notify(`Percakapan dengan ${o.value.issuedBy} dibuka di inbox iClean Connect`) }

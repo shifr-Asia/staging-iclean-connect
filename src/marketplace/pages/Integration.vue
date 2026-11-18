@@ -1,10 +1,10 @@
 <template>
-  <StoreLayout>
-    <h1 class="font-heading text-2xl font-extrabold text-slate-900">Rancangan integrasi dengan Ukirama</h1>
-    <p class="mt-1 max-w-3xl text-[14px] text-slate-600">Ukirama adalah sumber kebenaran untuk produk, harga, pelanggan, pesanan, pembayaran, dan pengiriman. Marketplace hanya menampilkan data tersebut dan mengirim transaksi baru ke Ukirama melalui API.</p>
+  <StoreLayout title="Integrasi Ukirama">
+    <div class="px-3 pt-3 md:p-0"><h1 class="font-heading text-xl md:text-2xl font-extrabold text-slate-900">Rancangan integrasi dengan Ukirama</h1>
+    <p class="mt-1 max-w-3xl text-[14px] text-slate-600">Ukirama adalah sumber kebenaran untuk produk, harga, pelanggan, pesanan, pembayaran, dan pengiriman. Marketplace hanya menampilkan data tersebut dan mengirim transaksi baru ke Ukirama melalui API.</p></div>
 
     <!-- diagram -->
-    <div class="mt-5 grid items-stretch gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 lg:grid-cols-[1fr_auto_1.1fr_auto_1fr]">
+    <div class="mcard mt-5 grid items-stretch gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 lg:grid-cols-[1fr_auto_1.1fr_auto_1fr]">
       <Box title="icleanplus.id" sub="Website & CMS" :lines="['Halaman produk', 'Tombol Beli Sekarang → kode item']" color="#64748b" />
       <Arrow label="SKU" />
       <Box title="order.icleanplus.id" sub="B2B Marketplace" :lines="['Keranjang, checkout, akun', 'Cache data Ukirama (baca)', 'Payment gateway (VA/QRIS)', 'Notifikasi WA & email']" color="#008FD4" />
@@ -13,7 +13,7 @@
     </div>
 
     <!-- table -->
-    <div class="mt-5 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div class="mcard mt-5 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full min-w-[760px] text-[13px]">
         <thead class="bg-slate-50">
           <tr class="text-left text-[11px] uppercase tracking-wider text-slate-500">
@@ -32,21 +32,21 @@
       </table>
     </div>
 
-    <div class="mt-5 grid gap-4 md:grid-cols-2">
-      <div class="rounded-2xl border border-slate-200 bg-white p-5 text-[13px]">
+    <div class="mt-2 md:mt-5 grid gap-2 md:gap-4 md:grid-cols-2">
+      <div class="mcard rounded-2xl border border-slate-200 bg-white p-5 text-[13px]">
         <p class="font-heading font-extrabold text-slate-900">Dibutuhkan dari pihak Ukirama</p>
         <ul class="mt-2 space-y-1.5 text-slate-600">
           <li v-for="x in fromUkirama" :key="x" class="flex gap-2"><Check class="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />{{ x }}</li>
         </ul>
       </div>
-      <div class="rounded-2xl border border-slate-200 bg-white p-5 text-[13px]">
+      <div class="mcard rounded-2xl border border-slate-200 bg-white p-5 text-[13px]">
         <p class="font-heading font-extrabold text-slate-900">Dibutuhkan dari pihak iClean</p>
         <ul class="mt-2 space-y-1.5 text-slate-600">
           <li v-for="x in fromIclean" :key="x" class="flex gap-2"><Check class="mt-0.5 h-4 w-4 shrink-0 text-[#008FD4]" />{{ x }}</li>
         </ul>
       </div>
     </div>
-    <p class="mt-3 text-[12px] text-slate-500">Rincian lengkap ada di dokumen “Kebutuhan Data Marketplace & Integrasi Ukirama”.</p>
+    <p class="mt-3 px-3 md:px-0 text-[12px] text-slate-500">Rincian lengkap ada di dokumen “Kebutuhan Data Marketplace & Integrasi Ukirama”.</p>
   </StoreLayout>
 </template>
 

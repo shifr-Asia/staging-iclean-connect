@@ -17,6 +17,8 @@ const routes = [
   { path: '/marketplace/pesanan/:id', component: M('OrderDetail') },
   { path: '/marketplace/penawaran/:id', redirect: (to) => `/marketplace/pesanan/${to.params.id}` },
   { path: '/marketplace/akun', component: M('Account') },
+  { path: '/marketplace/kategori', component: M('Categories') },
+  { path: '/marketplace/notifikasi', component: M('Notifications') },
   { path: '/marketplace/sales', component: M('SalesConsole') },
   { path: '/marketplace/integrasi', component: M('Integration') },
   { path: '/:pathMatch(.*)*', redirect: '/' },

@@ -14,6 +14,7 @@ function fresh() {
     syncLog: seedSyncLog(),
     toast: null,
     seq: 130,
+    notifSeen: {},
   }
 }
 
@@ -226,3 +227,29 @@ export function orderTotal(o) {
   const sub = o.items.reduce((n, it) => n + (it.unitPrice || 0) * it.qty, 0)
   return { sub, ppn: sub * PPN, total: sub * (1 + PPN) }
 }
+
+// ── notifications (derived from Ukirama status per order) ──
+export const notifications = computed(() => {
+  const out = []
+  for (const o of state.orders.filter((x) => x.customerId === persona.value.id)) {
+    if (o.type === 'quote') {
+      if (o.quoteStatus === 'issued') out.push({ key: o.id + 'qt', orderId: o.id, kind: 'quote', title: 'Quotation terbit', body: `${o.ukiramaRef} untuk ${o.id} siap disetujui · berlaku sampai ${o.validUntil}`, at: o.issuedAt })
+      else if (o.quoteStatus === 'requested') out.push({ key: o.id + 'rq', orderId: o.id, kind: 'info', title: 'Permintaan penawaran terkirim', body: `${o.id} diteruskan ke Sales. Quotation akan dikirim via WhatsApp & email.`, at: o.createdAt })
+      continue
+    }
+    const labels = ['Pesanan dibuat di Ukirama', 'Invoice terbit', 'Pembayaran diterima', 'Pesanan dikemas', 'Pesanan dikirim', 'Pesanan diterima']
+    for (let i = (o.stepAt || []).length - 1; i >= 0; i--) {
+      if (!o.stepAt[i]) continue
+      const extra = i === 4 ? ` · ${o.shipping.ref}` : i === 1 ? ` · ${o.invoice.no}` : i === 5 && o.leadTime ? ` · lead time ${o.leadTime}` : ''
+      out.push({ key: `${o.id}-${i}`, orderId: o.id, kind: i >= 4 ? 'ship' : i === 2 ? 'pay' : 'order', title: labels[i], body: `${o.id} (${o.ukiramaRef})${extra}`, at: o.stepAt[i] })
+      break // latest status per order
+    }
+  }
+  return out
+})
+export const unreadCount = computed(() => {
+  const total = notifications.value.length
+  const seen = state.notifSeen[persona.value.id] ?? Math.max(0, total - 2)
+  return persona.value.status === 'guest' ? 0 : Math.max(0, total - seen)
+})
+export function markNotificationsRead() { state.notifSeen[persona.value.id] = notifications.value.length }

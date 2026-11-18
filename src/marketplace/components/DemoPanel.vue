@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bottom-[150px] right-3 z-[60] flex flex-col items-end md:items-start md:bottom-4 md:left-3 md:right-auto">
+  <div class="fixed right-3 z-[60] flex flex-col items-end md:items-start md:bottom-4 md:left-3 md:right-auto" :class="raised ? 'bottom-[84px]' : 'bottom-[72px]'">
     <transition name="fade">
       <div v-if="open" class="mb-2 w-[290px] max-h-[70vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-4 shadow-float text-[13px]">
         <div class="flex items-center justify-between">
@@ -34,6 +34,7 @@
 import { ref } from 'vue'
 import { X, RefreshCw, LayoutDashboard, ArrowLeftRight, Globe, FlaskConical } from 'lucide-vue-next'
 import { state, persona, login, logout, simulateUkiramaUpdate, resetDemo, notify } from '../store'
+defineProps({ raised: Boolean })
 const open = ref(false)
 const list = [
   { id: 'guest', label: 'Tamu', hint: 'belum login' },

@@ -1,14 +1,14 @@
 <template>
-  <StoreLayout>
-    <h1 class="font-heading text-xl font-extrabold text-slate-900">Checkout</h1>
+  <StoreLayout title="Checkout">
+    <h1 class="hidden md:block font-heading text-xl font-extrabold text-slate-900">Checkout</h1>
 
-    <div v-if="persona.status === 'pending'" class="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center text-amber-900">
+    <div v-if="persona.status === 'pending'" class="mcard md:mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center text-amber-900">
       <Clock class="mx-auto h-8 w-8" />
       <p class="mt-2 font-semibold">Akun sedang diverifikasi Sales</p>
       <p class="mt-1 text-[13px]">Checkout aktif setelah akun ditautkan ke data pelanggan di Ukirama.</p>
     </div>
 
-    <div v-else-if="placed.length" class="mx-auto mt-4 max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 text-center">
+    <div v-else-if="placed.length" class="mcard mx-auto md:mt-4 max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 text-center">
       <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-emerald-600"><CircleCheck class="h-8 w-8" /></span>
       <p class="mt-3 font-heading text-xl font-extrabold text-slate-900">Pesanan dibuat</p>
       <div class="mt-4 space-y-2 text-left">
@@ -23,28 +23,28 @@
       <p v-if="payment !== 'top' && hasPriced" class="mt-4 rounded-lg bg-sky-50 px-3 py-2 text-[13px] text-[#016EA3]">Selesaikan pembayaran {{ payment === 'qris' ? 'QRIS' : 'VA BCA 8808 0412 3391 22' }} dalam 24 jam. Status pembayaran tercatat otomatis di Ukirama.</p>
     </div>
 
-    <div v-else-if="!cartSummary.count" class="mt-4 rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500">
+    <div v-else-if="!cartSummary.count" class="mcard md:mt-4 rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500">
       Tidak ada produk yang dipilih. <RouterLink to="/marketplace/keranjang" class="font-semibold text-[#008FD4]">Kembali ke keranjang</RouterLink>
     </div>
 
-    <div v-else class="mt-4 grid gap-4 lg:grid-cols-[1fr_360px] lg:items-start">
-      <div class="min-w-0 space-y-3">
+    <div v-else class="md:mt-4 grid gap-2 md:gap-4 lg:grid-cols-[1fr_360px] lg:items-start">
+      <div class="min-w-0 space-y-2 md:space-y-3">
         <!-- buyer -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-4 text-[13px]">
+        <div class="mcard addr-stripe rounded-2xl border border-slate-200 bg-white p-3 md:p-4 text-[13px]">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <p class="font-heading font-extrabold text-slate-900">{{ persona.company }}</p>
+            <p class="flex items-center gap-1.5 font-heading font-extrabold text-slate-900"><MapPin class="h-4 w-4 text-[#008FD4] md:hidden" />{{ persona.company }}</p>
             <span class="text-slate-500">Kode pelanggan <strong class="text-slate-700">{{ persona.ukiramaCode }}</strong> <SourceChip /></span>
           </div>
           <p class="mt-1 text-slate-500">PIC {{ persona.pic }} · {{ persona.email }} · Sales {{ persona.sales }}</p>
         </div>
 
         <!-- shipments -->
-        <div v-for="g in shipments" :key="g.addr.id" class="rounded-2xl border border-slate-200 bg-white">
-          <div class="border-b border-slate-100 px-4 py-3">
+        <div v-for="g in shipments" :key="g.addr.id" class="mcard rounded-2xl border border-slate-200 bg-white">
+          <div class="border-b border-slate-100 px-3 md:px-4 py-3">
             <p class="flex items-center gap-2 text-[13px] font-semibold text-slate-900"><MapPin class="h-4 w-4 text-[#008FD4]" /> Pengiriman ke {{ g.addr.label }}</p>
             <p class="ml-6 text-[12px] text-slate-500">{{ g.addr.recipient }} · {{ g.addr.line }} · {{ g.addr.hours }}</p>
           </div>
-          <div v-for="x in g.rows" :key="x.line.sku" class="flex items-center gap-3 px-4 py-2.5 text-[13px]">
+          <div v-for="x in g.rows" :key="x.line.sku" class="flex items-center gap-3 px-3 md:px-4 py-2.5 text-[13px]">
             <ProductTile :product="VARIANTS[x.line.sku].product" class="h-12 w-12 shrink-0" />
             <div class="min-w-0 flex-1">
               <p class="truncate font-semibold text-slate-800">{{ VARIANTS[x.line.sku].product.name }}</p>
@@ -52,7 +52,7 @@
             </div>
             <p class="shrink-0 font-semibold tabular-nums" :class="x.r.unitPrice ? 'text-slate-900' : 'text-amber-700'">{{ x.r.unitPrice ? rupiah(x.r.unitPrice * x.line.qty) : 'Penawaran' }}</p>
           </div>
-          <div v-if="g.priced" class="grid gap-2 border-t border-slate-100 px-4 py-3 sm:grid-cols-2">
+          <div v-if="g.priced" class="grid gap-2 border-t border-slate-100 px-3 md:px-4 py-3 sm:grid-cols-2">
             <button v-for="m in methods(g.addr)" :key="m.id" class="rounded-lg border px-3 py-2 text-left text-[12px]" :class="(ship[g.addr.id] || 'Armada iClean') === m.id ? 'border-[#008FD4] bg-sky-50' : 'border-slate-200'" @click="ship[g.addr.id] = m.id">
               <span class="flex items-center gap-1.5 font-semibold text-slate-800"><Truck class="h-3.5 w-3.5" />{{ m.id }}</span>
               <span class="text-slate-500">{{ m.eta }} · {{ m.fee }}</span>
@@ -61,7 +61,7 @@
         </div>
 
         <!-- PO -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+        <div class="mcard rounded-2xl border border-slate-200 bg-white p-3 md:p-4">
           <p class="font-heading font-extrabold text-slate-900">Dokumen pembelian</p>
           <div class="mt-3 grid gap-3 sm:grid-cols-2">
             <div>
@@ -77,7 +77,7 @@
         </div>
 
         <!-- payment -->
-        <div v-if="hasPriced" class="rounded-2xl border border-slate-200 bg-white p-4">
+        <div v-if="hasPriced" class="mcard rounded-2xl border border-slate-200 bg-white p-3 md:p-4">
           <p class="font-heading font-extrabold text-slate-900">Metode pembayaran</p>
           <div class="mt-3 grid gap-2">
             <button v-if="canTop" class="flex items-start gap-3 rounded-xl border p-3 text-left" :class="payment === 'top' ? 'border-[#008FD4] bg-sky-50' : 'border-slate-200'" @click="payment = 'top'">
@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <aside class="rounded-2xl border border-slate-200 bg-white p-5 lg:sticky lg:top-40">
+      <aside class="mcard rounded-2xl border border-slate-200 bg-white p-3 md:p-5 lg:sticky lg:top-40">
         <p class="font-heading text-lg font-extrabold text-slate-900">Ringkasan</p>
         <div class="mt-3 space-y-1.5 text-[13px]">
           <div class="flex justify-between"><span class="text-slate-500">Subtotal produk</span><span class="font-semibold tabular-nums">{{ rupiah(cartSummary.subtotal) }}</span></div>
@@ -115,11 +115,20 @@
           <li>• {{ soCount }} Sales Order dibuat di Ukirama (1 per alamat kirim)</li>
           <li v-if="cartSummary.quote.length">• Permintaan penawaran diteruskan ke Sales {{ persona.sales }}</li>
         </ul>
-        <button class="mt-4 w-full rounded-lg bg-[#008FD4] py-3 font-semibold text-white hover:bg-[#016EA3] disabled:bg-slate-300" :disabled="hasPriced && (!payment || (payment === 'top' && overLimit))" @click="submit">
+        <button class="hidden md:block mt-4 w-full rounded-lg bg-[#008FD4] py-3 font-semibold text-white hover:bg-[#016EA3] disabled:bg-slate-300" :disabled="hasPriced && (!payment || (payment === 'top' && overLimit))" @click="submit">
           {{ hasPriced ? (payment === 'top' ? 'Buat pesanan' : 'Bayar & buat pesanan') : 'Kirim permintaan penawaran' }}
         </button>
       </aside>
     </div>
+    <template v-if="!placed.length && cartSummary.count && persona.status !== 'pending'" #bottom>
+      <div class="flex h-[52px] items-center">
+        <div class="min-w-0 flex-1 pr-3 text-right leading-tight">
+          <p class="text-[11px] text-slate-600">Total pembayaran</p>
+          <p class="font-heading text-[16px] font-extrabold text-[#003C80] tabular-nums">{{ hasPriced ? rupiah(cartSummary.total) : 'Menunggu penawaran' }}</p>
+        </div>
+        <button class="h-full w-[38%] bg-[#008FD4] text-[14px] font-semibold text-white disabled:bg-slate-300" :disabled="hasPriced && (!payment || (payment === 'top' && overLimit))" @click="submit">{{ hasPriced ? 'Buat Pesanan' : 'Kirim Permintaan' }}</button>
+      </div>
+    </template>
   </StoreLayout>
 </template>
 
@@ -173,3 +182,11 @@ function describe(id) {
   return o.type === 'quote' ? 'Permintaan penawaran · menunggu quotation Sales' : `${o.ukiramaRef} di Ukirama · ${addressById(o.addressId)?.label}`
 }
 </script>
+
+<style scoped>
+@media (max-width: 767px) {
+  .addr-stripe { position: relative; padding-bottom: 16px; }
+  .addr-stripe::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: repeating-linear-gradient(45deg, #008FD4 0 18px, transparent 18px 24px, #F59E0B 24px 42px, transparent 42px 48px); }
+}
+</style>

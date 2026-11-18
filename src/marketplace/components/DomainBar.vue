@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-0 z-50 flex items-center gap-2 border-b border-slate-300 bg-slate-200/95 px-2 sm:px-3 py-1.5 backdrop-blur">
+  <div class="sticky top-0 z-50 flex h-[38px] items-center gap-2 border-b border-slate-300 bg-slate-200/95 px-2 sm:px-3 backdrop-blur">
     <RouterLink to="/" class="hidden sm:flex items-center gap-1.5 shrink-0" title="Kembali ke halaman utama mockup">
       <span class="w-2.5 h-2.5 rounded-full bg-rose-400" /><span class="w-2.5 h-2.5 rounded-full bg-amber-400" /><span class="w-2.5 h-2.5 rounded-full bg-emerald-400" />
     </RouterLink>

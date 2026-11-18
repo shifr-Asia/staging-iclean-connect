@@ -1,6 +1,6 @@
 <template>
-  <StoreLayout>
-    <div class="mx-auto max-w-3xl">
+  <StoreLayout title="Daftar Akun Perusahaan">
+    <div class="mx-auto max-w-3xl px-3 pt-3 md:p-0">
       <h1 class="font-heading text-xl font-extrabold text-slate-900">Daftar akun perusahaan</h1>
       <p class="mt-1 text-[13px] text-slate-600">Setelah mendaftar, Sales iClean memverifikasi data Anda dan menautkannya ke data pelanggan di Ukirama. Setelah itu harga dan checkout aktif.</p>
 

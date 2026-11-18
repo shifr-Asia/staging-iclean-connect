@@ -1,6 +1,6 @@
 <template>
-  <StoreLayout>
-    <div class="mx-auto grid max-w-4xl overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-2">
+  <StoreLayout title="Masuk">
+    <div class="mcard mx-auto grid max-w-4xl overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-2">
       <div class="hidden md:flex flex-col justify-between bg-gradient-to-br from-[#003C80] to-[#008FD4] p-8 text-white">
         <div>
           <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-sky-200">iClean Order</p>
@@ -13,7 +13,7 @@
         </ul>
       </div>
 
-      <div class="p-6 sm:p-8">
+      <div class="p-4 sm:p-8">
         <p v-if="redirect.includes('checkout')" class="mb-4 rounded-lg bg-sky-50 px-3 py-2 text-[12px] text-[#016EA3]">Masuk dulu untuk melanjutkan checkout. Keranjang Anda tetap tersimpan.</p>
         <h1 class="font-heading text-xl font-extrabold text-slate-900">Masuk</h1>
 
