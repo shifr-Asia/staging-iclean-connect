@@ -46,7 +46,7 @@
         </ul>
       </div>
     </div>
-    <p class="mt-3 px-3 md:px-0 text-[12px] text-slate-500">Rincian lengkap ada di dokumen “Kebutuhan Data Marketplace & Integrasi Ukirama”.</p>
+    <p class="mt-3 px-3 md:px-0 text-[12px] text-slate-500">Rincian lengkap: <RouterLink to="/kebutuhan-data" class="font-semibold text-[#008FD4] hover:underline">Kebutuhan Data & Integrasi Ukirama →</RouterLink></p>
   </StoreLayout>
 </template>
 

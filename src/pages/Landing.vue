@@ -41,17 +41,27 @@
         </RouterLink>
       </div>
 
-      <div class="mt-6 flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 px-5 py-4 text-sm text-emerald-900 md:flex-row md:items-center">
-        <Database class="h-5 w-5 shrink-0 text-emerald-600" />
-        <p class="flex-1"><strong>Sumber data: Ukirama ERP.</strong> Produk, harga per klien, stok, invoice, pembayaran, dan status pengiriman dibaca dari Ukirama; aplikasi ini tidak menyimpan versi harga sendiri.</p>
-        <RouterLink to="/marketplace/integrasi" class="shrink-0 font-semibold text-emerald-700 underline-offset-2 hover:underline">Lihat rancangan integrasi →</RouterLink>
-      </div>
+      <RouterLink to="/kebutuhan-data" class="group mt-5 grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-slate-300 hover:shadow-float md:grid-cols-[auto_1fr_auto] md:items-center md:p-7">
+        <span class="grid h-12 w-12 place-items-center rounded-xl bg-emerald-600 text-white"><ClipboardList class="h-6 w-6" /></span>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h2 class="font-heading text-xl font-extrabold text-slate-900">Kebutuhan Data & Integrasi Ukirama</h2>
+            <span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold text-amber-800">Perlu ditindaklanjuti</span>
+          </div>
+          <p class="mt-1 text-slate-600">Daftar data yang perlu disiapkan pihak iClean dan akses API yang perlu dikonfirmasi ke Ukirama, beserta pemetaan data dan pertanyaan terbuka.</p>
+          <div class="mt-3 flex flex-wrap gap-2 text-[12px]">
+            <span class="rounded-full bg-sky-50 px-2.5 py-1 font-semibold text-[#016EA3]">Dari iClean: produk, harga, pelanggan, proses, logistik, pembayaran</span>
+            <span class="rounded-full bg-emerald-50 px-2.5 py-1 font-semibold text-emerald-700">Dari Ukirama: akses API, endpoint baca/tulis, webhook</span>
+          </div>
+        </div>
+        <span class="inline-flex items-center gap-2 text-sm font-bold text-emerald-700">Lihat daftar <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+      </RouterLink>
     </main>
   </div>
 </template>
 
 <script setup>
-import { Store, MessagesSquare, Check, ArrowRight, Database } from 'lucide-vue-next'
+import { Store, MessagesSquare, Check, ArrowRight, ClipboardList } from 'lucide-vue-next'
 
 const cards = [
   {

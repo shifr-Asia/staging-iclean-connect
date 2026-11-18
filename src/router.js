@@ -6,6 +6,7 @@ const M = (name) => () => import(`./marketplace/pages/${name}.vue`)
 const routes = [
   { path: '/', component: () => import('./pages/Landing.vue') },
   { path: '/crm', component: () => import('./pages/CrmApp.vue') },
+  { path: '/kebutuhan-data', component: () => import('./pages/Requirements.vue') },
   { path: '/marketplace', component: M('Home') },
   { path: '/marketplace/produk/:slug', component: M('SiteProduct') },
   { path: '/marketplace/p/:slug', component: M('ProductDetail') },
@@ -27,7 +28,7 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior: () => ({ top: 0 }),
+  scrollBehavior: (to) => (to.hash ? { el: to.hash, top: 110 } : { top: 0 }),
 })
 
 router.beforeEach((to) => {
