@@ -20,7 +20,7 @@
           <ChevronRight class="h-4 w-4 text-slate-400" />
         </RouterLink>
       </div>
-      <p v-if="payment !== 'top' && hasPriced" class="mt-4 rounded-lg bg-sky-50 px-3 py-2 text-[13px] text-[#016EA3]">Selesaikan pembayaran {{ payment === 'qris' ? 'QRIS' : 'VA BCA 8808 0412 3391 22' }} dalam 24 jam. Status pembayaran tercatat otomatis di Ukirama.</p>
+      <p v-if="payment !== 'top' && hasPriced" class="mt-4 rounded-lg bg-sky-50 px-3 py-2 text-[13px] text-[#016EA3]">Selesaikan pembayaran {{ payment === 'qris' ? 'lewat QRIS' : 'ke VA BCA 8808 0412 3391 22' }} dalam 24 jam. Nomor VA/QRIS dibuat Ukirama dan pelunasannya tercatat otomatis di sana.</p>
     </div>
 
     <div v-else-if="!cartSummary.count" class="mcard md:mt-4 rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-500">
@@ -78,14 +78,15 @@
 
         <!-- payment -->
         <div v-if="hasPriced" class="mcard rounded-2xl border border-slate-200 bg-white p-3 md:p-4">
-          <p class="font-heading font-extrabold text-slate-900">Metode pembayaran</p>
+          <div class="flex items-center justify-between gap-2"><p class="font-heading font-extrabold text-slate-900">Metode pembayaran</p><SourceChip label="Diproses Ukirama" /></div>
           <div class="mt-3 grid gap-2">
             <button v-if="canTop" class="flex items-start gap-3 rounded-xl border p-3 text-left" :class="payment === 'top' ? 'border-[#008FD4] bg-sky-50' : 'border-slate-200'" @click="payment = 'top'">
               <Receipt class="mt-0.5 h-5 w-5 shrink-0 text-[#003C80]" />
               <span class="min-w-0 flex-1">
                 <span class="block text-[13px] font-semibold text-slate-900">Invoice · TOP {{ persona.top }} hari</span>
                 <span class="block text-[12px] text-slate-500">Invoice resmi dari Ukirama, bayar via transfer sebelum jatuh tempo.</span>
-                <span class="mt-1.5 block text-[11px]" :class="overLimit ? 'text-rose-600 font-semibold' : 'text-slate-500'">Sisa limit kredit {{ rupiah(persona.creditLimit - persona.outstanding) }} dari {{ rupiah(persona.creditLimit) }} <SourceChip /></span>
+                <span v-if="persona.contract" class="mt-1.5 block text-[11px] text-slate-500">Kontrak {{ persona.contract.no }} · berlaku {{ persona.contract.period }}</span>
+                <span class="mt-0.5 block text-[11px]" :class="overLimit ? 'text-rose-600 font-semibold' : 'text-slate-500'">Sisa limit kredit {{ rupiah(persona.creditLimit - persona.outstanding) }} dari {{ rupiah(persona.creditLimit) }} <SourceChip /></span>
               </span>
             </button>
             <button v-for="g in gateway" :key="g.id" class="flex items-start gap-3 rounded-xl border p-3 text-left" :class="payment === g.id ? 'border-[#008FD4] bg-sky-50' : 'border-slate-200'" @click="payment = g.id">
@@ -148,8 +149,8 @@ const po = ref('')
 const note = ref('')
 const placed = ref([])
 const gateway = [
-  { id: 'va', icon: Landmark, label: 'Virtual Account (BCA, Mandiri, BRI, BNI)', desc: 'Lunas otomatis terkonfirmasi, tanpa unggah bukti transfer.' },
-  { id: 'qris', icon: QrCode, label: 'QRIS', desc: 'Bayar dari aplikasi bank atau e-wallet perusahaan.' },
+  { id: 'va', icon: Landmark, label: 'Virtual Account (BCA, Mandiri, BRI, BNI)', desc: 'Nomor VA dibuat Ukirama untuk invoice ini; pelunasan tercatat otomatis.' },
+  { id: 'qris', icon: QrCode, label: 'QRIS', desc: 'Kode QRIS dibuat Ukirama; bayar dari aplikasi bank atau e-wallet perusahaan.' },
 ]
 
 const all = computed(() => [...cartSummary.value.priced, ...cartSummary.value.quote])

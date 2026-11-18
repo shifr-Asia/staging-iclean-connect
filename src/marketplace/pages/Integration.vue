@@ -7,9 +7,9 @@
     <div class="mcard mt-5 grid items-stretch gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 lg:grid-cols-[1fr_auto_1.1fr_auto_1fr]">
       <Box title="icleanplus.id" sub="Website & CMS" :lines="['Halaman produk', 'Tombol Beli Sekarang → kode item']" color="#64748b" />
       <Arrow label="SKU" />
-      <Box title="order.icleanplus.id" sub="B2B Marketplace" :lines="['Keranjang, checkout, akun', 'Cache data Ukirama (baca)', 'Payment gateway (VA/QRIS)', 'Notifikasi WA & email']" color="#008FD4" />
+      <Box title="order.icleanplus.id" sub="B2B Marketplace" :lines="['Keranjang, checkout, akun', 'Cache data Ukirama (baca)', 'Tampilkan VA/QRIS dari Ukirama', 'Notifikasi WA & email']" color="#008FD4" />
       <Arrow label="API" both />
-      <Box title="Ukirama ERP" sub="Sumber kebenaran" :lines="['Item, stok, price list', 'Pelanggan, TOP, limit kredit', 'Quotation, SO, DO, invoice', 'Penerimaan pembayaran']" color="#0f9f6e" />
+      <Box title="Ukirama ERP" sub="Sumber kebenaran" :lines="['Item, stok, price list', 'Pelanggan, kontrak, TOP, saldo kredit', 'Quotation, SO, DO, invoice', 'VA/QRIS & penerimaan pembayaran']" color="#0f9f6e" />
     </div>
 
     <!-- table -->
@@ -60,18 +60,23 @@ const rows = [
   ['Produk & kemasan (item, UoM)', 'Ukirama', 'in', 'Terjadwal (mis. tiap jam) + saat ada perubahan', 'Katalog; dipadankan dengan konten CMS website'],
   ['Stok per gudang', 'Ukirama', 'in', 'Tiap 15–30 menit', 'Info ketersediaan di halaman produk'],
   ['Price list (klien, grup, region, tier qty)', 'Ukirama', 'in', 'Terjadwal + validasi ulang saat checkout', 'Harga setelah login, tabel tier'],
-  ['Pelanggan, alamat, TOP, limit kredit, piutang', 'Ukirama', 'both', 'Saat verifikasi akun; dibaca ulang saat checkout', 'Akun perusahaan, opsi bayar TOP'],
+  ['Pelanggan & alamat', 'Ukirama', 'both', 'Saat verifikasi akun', 'Akun perusahaan, alamat kirim'],
+  ['Kontrak klien (nomor, periode, harga, komitmen)', 'Ukirama', 'in', 'Terjadwal + saat login', 'Harga kontrak, info kontrak di akun'],
+  ['TOP, limit & saldo kredit, piutang', 'Ukirama', 'in', 'Dibaca ulang saat checkout', 'Opsi bayar TOP, sisa limit'],
   ['Permintaan penawaran & quotation', 'Ukirama', 'both', 'Real-time (saat dibuat / terbit)', 'Produk khusus, qty di atas tier'],
   ['Sales Order', 'Ukirama', 'out', 'Real-time saat checkout', 'Pesanan yang sudah ada harganya'],
   ['Invoice & faktur pajak (PDF)', 'Ukirama', 'in', 'Webhook / polling', 'Tagihan, unduh dokumen'],
-  ['Pembayaran', 'Ukirama', 'both', 'Gateway → Ukirama real-time; transfer manual dibaca dari Ukirama', 'Status lunas, riwayat pembayaran'],
+  ['VA / QRIS per invoice', 'Ukirama', 'in', 'Real-time saat checkout', 'Instruksi bayar ke klien'],
+  ['Status pembayaran', 'Ukirama', 'in', 'Webhook / polling', 'Status lunas, riwayat pembayaran'],
   ['Delivery Order, resi, status kirim', 'Ukirama', 'in', 'Webhook / polling', 'Timeline pesanan & lead time'],
   ['Akun login, keranjang, sesi', 'Marketplace', '—', '—', 'Hanya data operasional aplikasi'],
 ]
 const fromUkirama = [
   'Dokumentasi API + akses sandbox, kredensial, rate limit',
   'Endpoint baca: item, stok, price list, pelanggan, quotation, SO, DO, invoice, pembayaran',
-  'Endpoint tulis: pelanggan, quotation request, sales order, penerimaan pembayaran',
+  'Endpoint tulis: pelanggan, quotation request, sales order',
+  'Pembuatan VA/QRIS per invoice + status pembayaran',
+  'Data kontrak klien & saldo kredit',
   'Webhook atau filter updated_since untuk perubahan status',
   'Custom field nomor referensi marketplace di dokumen',
 ]
@@ -81,7 +86,7 @@ const fromIclean = [
   'Daftar pelanggan eksisting, alamat cabang, TOP & limit kredit',
   'Alur verifikasi akun, SLA quotation, konfirmasi pembayaran',
   'Data gudang, metode kirim, lead time per region',
-  'Akun payment gateway & data migrasi dari oxphere.com',
+  'Metode VA/QRIS yang aktif di Ukirama & data migrasi dari oxphere.com',
 ]
 
 const Box = defineComponent({

@@ -41,7 +41,18 @@
           <div><p class="text-[13px] font-bold text-slate-900 tabular-nums">{{ persona.top ? shortRp(persona.creditLimit - persona.outstanding) : '—' }}</p><p class="text-[10px] text-slate-500">Sisa limit kredit</p></div>
           <div><p class="text-[13px] font-bold text-slate-900 tabular-nums">{{ unpaidCount }}</p><p class="text-[10px] text-slate-500">Invoice belum lunas</p></div>
         </div>
-        <p class="bg-white px-3 pb-2 text-right text-[10px] text-emerald-700">Data kredit & tagihan dari Ukirama</p>
+        <p class="bg-white px-3 pb-2 text-right text-[10px] text-emerald-700">Data kontrak, kredit & tagihan dari Ukirama</p>
+        <div v-if="persona.contract" class="mt-2 bg-white px-3 py-3">
+          <div class="flex items-center justify-between"><p class="text-[13px] font-semibold text-slate-900">Kontrak aktif</p><span class="rounded-full bg-emerald-50 px-2 text-[10px] font-semibold text-emerald-700">{{ persona.contract.status }}</span></div>
+          <div class="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12px]">
+            <span class="text-slate-500">Nomor</span><span class="text-right font-medium text-slate-800">{{ persona.contract.no }}</span>
+            <span class="text-slate-500">Periode</span><span class="text-right text-slate-800">{{ persona.contract.period }}</span>
+            <span class="text-slate-500">Cakupan</span><span class="text-right text-slate-800">{{ persona.contract.scope }}</span>
+            <span class="text-slate-500">Komitmen</span><span class="text-right text-slate-800">{{ persona.contract.minMonthly }}</span>
+          </div>
+          <div class="mt-3"><div class="flex justify-between text-[11px] text-slate-500"><span>Kredit terpakai {{ shortRp(persona.outstanding) }}</span><span>Limit {{ shortRp(persona.creditLimit) }}</span></div>
+          <div class="mt-1 h-1.5 overflow-hidden rounded-full bg-slate-100"><div class="h-full bg-[#008FD4]" :style="{ width: (persona.outstanding / persona.creditLimit * 100) + '%' }" /></div></div>
+        </div>
 
         <!-- menu -->
         <div class="mt-2 divide-y divide-slate-100 bg-white">
@@ -99,14 +110,19 @@
 
       <div class="mt-4 grid gap-4 lg:grid-cols-3">
         <div class="rounded-2xl border border-slate-200 bg-white p-5 text-[13px]">
-          <div class="flex items-center justify-between"><p class="font-heading font-extrabold text-slate-900">Termin & kredit</p><SourceChip /></div>
+          <div class="flex items-center justify-between"><p class="font-heading font-extrabold text-slate-900">Kontrak, termin & kredit</p><SourceChip /></div>
+          <div v-if="persona.contract" class="mt-3 rounded-lg bg-slate-50 p-3">
+            <p class="font-semibold text-slate-900">{{ persona.contract.no }} <span class="ml-1 rounded-full bg-emerald-100 px-2 text-[10px] font-semibold text-emerald-700">{{ persona.contract.status }}</span></p>
+            <p class="text-[12px] text-slate-500">{{ persona.contract.period }} · {{ persona.contract.scope }}</p>
+            <p class="text-[12px] text-slate-500">Komitmen {{ persona.contract.minMonthly }} · price list {{ persona.contract.priceList }}</p>
+          </div>
           <template v-if="persona.top">
             <p class="mt-3 text-slate-500">TOP</p><p class="font-semibold text-slate-900">{{ persona.top }} hari</p>
             <p class="mt-2 text-slate-500">Limit kredit</p><p class="font-semibold text-slate-900 tabular-nums">{{ rupiah(persona.creditLimit) }}</p>
             <p class="mt-2 text-slate-500">Piutang berjalan</p><p class="font-semibold text-slate-900 tabular-nums">{{ rupiah(persona.outstanding) }}</p>
             <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full bg-[#008FD4]" :style="{ width: (persona.outstanding / persona.creditLimit * 100) + '%' }" /></div>
           </template>
-          <p v-else class="mt-3 text-slate-500">Pembayaran di muka via payment gateway. Pengajuan TOP dapat dibahas dengan Sales {{ persona.sales || '' }}.</p>
+          <p v-else class="mt-3 text-slate-500">Pembayaran di muka via VA/QRIS yang dibuat Ukirama. Pengajuan TOP dapat dibahas dengan Sales {{ persona.sales || '' }}.</p>
           <p class="mt-3 text-slate-500">Sales PIC</p><p class="font-semibold text-slate-900">{{ persona.sales || 'Belum ditetapkan' }}</p>
         </div>
 

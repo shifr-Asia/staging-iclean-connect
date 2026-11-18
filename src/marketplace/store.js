@@ -106,7 +106,7 @@ export function placeOrder({ payment, shippingByAddress, poNumber, note }) {
     state.orders.unshift({
       id, ukiramaRef: so, type: 'order', customerId: persona.value.id, addressId: addrId,
       createdAt: nowLabel(), poNumber, note,
-      payment: { method: payment, label: payment === 'top' ? `Invoice TOP ${persona.value.top} hari` : payment === 'qris' ? 'QRIS (payment gateway)' : 'VA BCA (payment gateway)' },
+      payment: { method: payment, label: payment === 'top' ? `Invoice TOP ${persona.value.top} hari` : payment === 'qris' ? 'QRIS · dibuat Ukirama' : 'VA BCA · dibuat Ukirama' },
       invoice: { no: `INV/2611/0${state.seq + 100}`, due: gw ? 'Dibayar di muka' : 'TOP 30 hari' },
       shipping: { method: shippingByAddress[addrId] || 'Armada iClean', ref: '-' },
       items: rows.map((x) => ({ sku: x.line.sku, qty: x.line.qty, unitPrice: x.r.unitPrice })),
@@ -154,7 +154,7 @@ export function acceptQuote(order, payment) {
   const so = `SO/2611/0${state.seq + 160}`
   Object.assign(order, {
     type: 'order', quoteStatus: 'accepted', ukiramaRef: so, poNumber: '',
-    payment: { method: payment, label: payment === 'top' ? 'Invoice TOP 30 hari' : 'VA BCA (payment gateway)' },
+    payment: { method: payment, label: payment === 'top' ? 'Invoice TOP 30 hari' : 'VA BCA · dibuat Ukirama' },
     invoice: { no: `INV/2611/0${state.seq + 120}`, due: payment === 'top' ? 'TOP 30 hari' : 'Dibayar di muka' },
     shipping: { method: 'Armada iClean', ref: '-' },
     stepAt: [nowLabel(), payment === 'top' ? null : nowLabel(), null, null, null, null],

@@ -61,7 +61,7 @@ const step = ref(1)
 const ident = ref('')
 const demo = [
   { id: 'hgs', label: 'Hotel Grand Serpong', hint: 'Klien kontrak · TOP 30 hari · 3 alamat' },
-  { id: 'kls', label: 'Klinik Sehat Medika', hint: 'Klien terverifikasi · bayar via payment gateway' },
+  { id: 'kls', label: 'Klinik Sehat Medika', hint: 'Klien terverifikasi · bayar via VA/QRIS' },
   { id: 'new', label: 'CV Laundry Bersih Jaya', hint: 'Baru mendaftar · menunggu verifikasi Sales' },
 ]
 const matchPersona = () => Object.values(PERSONAS).find((p) => p.email && ident.value.toLowerCase().includes(p.email.split('@')[1].split('.')[0]))?.id || 'hgs'

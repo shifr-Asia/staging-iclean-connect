@@ -71,8 +71,8 @@ const cards = [
     features: [
       'Tombol “Beli Sekarang” di icleanplus.id langsung masuk keranjang',
       'Harga per klien, per area kirim, dan per kuantitas; sebagian lewat penawaran',
-      'Daftar akun diverifikasi Sales, checkout dengan Invoice TOP atau payment gateway',
-      'Riwayat belanja, pembayaran, dan status kirim dari Ukirama',
+      'Daftar akun diverifikasi Sales, checkout dengan Invoice TOP atau VA/QRIS dari Ukirama',
+      'Kontrak, saldo kredit, riwayat belanja, pembayaran & status kirim dari Ukirama',
     ],
     cta: 'Mulai dari halaman produk icleanplus.id',
   },

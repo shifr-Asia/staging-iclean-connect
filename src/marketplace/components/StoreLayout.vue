@@ -92,7 +92,7 @@
     <footer class="hidden md:block border-t border-slate-200 bg-white">
       <div class="mx-auto grid max-w-7xl grid-cols-4 gap-6 px-4 py-8 text-[12px] text-slate-500">
         <div><img src="/logo_iclean_birru.png" alt="iClean" class="h-6" /><p class="mt-2">Portal pengadaan B2B resmi iClean untuk hotel, restoran, rumah sakit, laundry, dan fasilitas.</p></div>
-        <div><p class="font-semibold text-slate-800">Layanan</p><p class="mt-2">Harga kontrak per klien</p><p>Multi-alamat gudang & cabang</p><p>Invoice TOP & payment gateway</p></div>
+        <div><p class="font-semibold text-slate-800">Layanan</p><p class="mt-2">Harga kontrak per klien</p><p>Multi-alamat gudang & cabang</p><p>Invoice TOP & VA/QRIS dari Ukirama</p></div>
         <div><p class="font-semibold text-slate-800">Data pesanan</p><p class="mt-2">Harga, stok, invoice, pembayaran & pengiriman bersumber dari Ukirama ERP</p></div>
         <div><p class="font-semibold text-slate-800">Butuh bantuan?</p><p class="mt-2">Sales & CS iClean · Senin–Jumat 08.00–17.00</p></div>
       </div>

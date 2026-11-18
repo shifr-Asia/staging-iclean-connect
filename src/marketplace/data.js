@@ -156,7 +156,8 @@ export const PERSONAS = {
     id: 'hgs', status: 'verified', label: 'Hotel Grand Serpong',
     company: 'PT Grand Serpong Hospitality', ukiramaCode: 'C-00412', group: 'hospitality',
     pic: 'Budi Santoso', email: 'purchasing@grandserpong.co.id', phone: '0812-8800-1122',
-    sales: 'Andi Pratama', top: 30, creditLimit: 150000000, outstanding: 42500000,
+    sales: 'Andi Pratama', top: 30, creditLimit: 150000000, outstanding: 42500000, overdue: 0,
+    contract: { no: 'KTR/HGS/2026/01', priceList: 'PL-K-HGS-2026', period: '1 Jan – 31 Des 2026', scope: '5 produk · Jabodetabek & Bali', minMonthly: 'Rp 25 jt / bulan', status: 'Aktif' },
     payments: ['top', 'gateway'],
     addresses: [
       { id: 'hgs-wh', label: 'Gudang Pusat', type: 'warehouse', region: 'JBD', recipient: 'Gudang Purchasing · Pak Dedi', line: 'Jl. Raya Serpong Km 7, Tangerang Selatan', hours: 'Sen–Jum 08.00–16.00' },
@@ -248,7 +249,7 @@ export function seedOrders() {
     },
     {
       id: 'MKT-2611-0109', ukiramaRef: 'SO/2611/0244', type: 'order', customerId: 'kls', addressId: 'kls-sby',
-      createdAt: d(8, '13.20'), poNumber: '', payment: { method: 'va', label: 'VA BCA (payment gateway)' },
+      createdAt: d(8, '13.20'), poNumber: '', payment: { method: 'va', label: 'VA BCA · dibuat Ukirama' },
       invoice: { no: 'INV/2611/0201', due: 'Dibayar di muka', paidAt: d(8, '13.41') },
       shipping: { method: 'Ekspedisi', ref: 'Resi SiCepat 0041 2290 8812' },
       items: [{ sku: 'FG-HSA-05', qty: 12, unitPrice: 107000 }, { sku: 'FG-SSS-05', qty: 6, unitPrice: 166500 }],

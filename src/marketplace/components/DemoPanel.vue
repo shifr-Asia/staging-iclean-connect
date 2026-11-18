@@ -39,7 +39,7 @@ const open = ref(false)
 const list = [
   { id: 'guest', label: 'Tamu', hint: 'belum login' },
   { id: 'hgs', label: 'Hotel Grand Serpong', hint: 'kontrak · TOP 30' },
-  { id: 'kls', label: 'Klinik Sehat Medika', hint: 'payment gateway' },
+  { id: 'kls', label: 'Klinik Sehat Medika', hint: 'VA/QRIS' },
   { id: 'new', label: 'CV Laundry Bersih Jaya', hint: 'pendaftar baru' },
 ]
 function pick(id) {

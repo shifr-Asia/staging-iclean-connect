@@ -45,13 +45,13 @@
             </div>
           </div>
           <button v-if="signup.status !== 'verified'" class="mt-4 rounded-lg bg-[#008FD4] px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-[#016EA3]" @click="verify">Verifikasi & tautkan ke Ukirama</button>
-          <p v-else class="mt-4 text-[13px] text-emerald-700">Akun aktif. Klien sekarang melihat harga umum area Bali dan bisa checkout via payment gateway.</p>
+          <p v-else class="mt-4 text-[13px] text-emerald-700">Akun aktif. Klien sekarang melihat harga umum area Bali dan bisa checkout dengan VA/QRIS dari Ukirama.</p>
         </div>
         <div class="rounded-2xl border border-slate-200 bg-white p-5 text-[13px] text-slate-600">
           <p class="font-heading font-extrabold text-slate-900">Yang terjadi saat verifikasi</p>
           <ol class="mt-2 space-y-1.5">
             <li>1. Akun marketplace ditautkan ke kode pelanggan Ukirama (lama atau baru).</li>
-            <li>2. Price list, termin, dan limit kredit dibaca dari Ukirama.</li>
+            <li>2. Price list, kontrak, termin, dan saldo kredit dibaca dari Ukirama.</li>
             <li>3. Sales PIC & wilayah ditetapkan; klien menerima notifikasi WhatsApp.</li>
           </ol>
         </div>
